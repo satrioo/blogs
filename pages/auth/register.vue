@@ -15,11 +15,11 @@ const form = reactive({
 
 const handleSubmit = () => {
   if (!form.name || !form.username || !form.email || !form.password) {
-    toast.add({ title: 'Semua field wajib diisi', color: 'error' })
+    toast.add({ title: 'Please fill all field', color: 'error' })
     return
   }
 
-  toast.add({ title: 'Registrasi berhasil!', color: 'success' })
+  toast.add({ title: 'Success register account', color: 'success' })
   authStore.doLogin(form) 
 }
 </script>

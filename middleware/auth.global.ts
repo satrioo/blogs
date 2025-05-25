@@ -8,7 +8,6 @@ export default defineNuxtRouteMiddleware((to) => {
   const isLoginPage = to.path === '/auth/login';
 
   if (isAdminPage && !isLoggedIn) {
-    console.warn(isLoggedIn, 'Akses admin page tanpa login, redirect ke login');
     return navigateTo('/auth/login');
   }
 
