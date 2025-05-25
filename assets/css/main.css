@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@config "../../tailwind.config.ts";
+
+@theme static {
+  --font-sans: "Public Sans", sans-serif;
+
+  --color-green-50: #effdf5;
+  --color-green-100: #d9fbe8;
+  --color-green-200: #b3f5d1;
+  --color-green-300: #75edae;
+  --color-green-400: #00dc82;
+  --color-green-500: #00c16a;
+  --color-green-600: #00a155;
+  --color-green-700: #007f45;
+  --color-green-800: #016538;
+  --color-green-900: #0a5331;
+  --color-green-950: #052e16;
+
+  --color-primary: #0078ce;
+  --color-primary-50: #87cdff;
+  --color-primary-100: #72c4ff;
+  --color-primary-200: #49b3ff;
+  --color-primary-300: #21a2ff;
+  --color-primary-400: #0090f7;
+  --color-primary-500: #0078ce;
+  --color-primary-600: #005796;
+  --color-primary-700: #00375e;
+  --color-primary-800: #001626;
+  --color-primary-900: #000000;
+  --color-primary-950: #000000;
+
+  --color-secondary: #01519b;
+  --color-secondary-50: #56adfe;
+  --color-secondary-100: #41a3fe;
+  --color-secondary-200: #1990fe;
+  --color-secondary-300: #027bec;
+  --color-secondary-400: #0166c4;
+  --color-secondary-500: #01519b;
+  --color-secondary-600: #013463;
+  --color-secondary-700: #00172c;
+  --color-secondary-800: #000000;
+  --color-secondary-900: #000000;
+  --color-secondary-950: #000000;
+
+  --color-tertiary: #e9690c;
+  --color-tertiary-50: #fbd0b2;
+  --color-tertiary-100: #fac59e;
+  --color-tertiary-200: #f8ae77;
+  --color-tertiary-300: #f69651;
+  --color-tertiary-400: #f47f2a;
+  --color-tertiary-500: #e9690c;
+  --color-tertiary-600: #b45109;
+  --color-tertiary-700: #7e3907;
+  --color-tertiary-800: #492104;
+  --color-tertiary-900: #140901;
+  --color-tertiary-950: #000000;
+
+  --color-surface: #f7faff;
+  --color-surface-50: #ffffff;
+  --color-surface-100: #ffffff;
+  --color-surface-200: #ffffff;
+  --color-surface-300: #ffffff;
+  --color-surface-400: #ffffff;
+  --color-surface-500: #f7faff;
+  --color-surface-600: #bfd7ff;
+  --color-surface-700: #87b4ff;
+  --color-surface-800: #4f91ff;
+  --color-surface-900: #176eff;
+  --color-surface-950: #005efa;
+}
