@@ -21,7 +21,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/content',
     '@nuxt/fonts',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
+    "@pinia/nuxt",
   ],
     ui: {
 

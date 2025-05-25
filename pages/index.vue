@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { iArticle } from "@/types/article";
 import { getPosts } from "@/api/posts";
+import { useArticleStore } from "@/stores/article";
 
 definePageMeta({
   layout: "landing",
 });
 
+const articleStore = useArticleStore();
 const posts = ref<iArticle[]>([]);
 const currentPagePosts = ref<iArticle[]>([]);
 const page = ref(1);
@@ -13,14 +15,22 @@ const perPage = 12;
 const loading = ref(true);
 
 onMounted(async () => {
-  await getPosts()
-    .then((data) => {
-      posts.value = data ?? [];
-      updateCurrentPagePosts();
-    })
-    .finally(() => {
-      loading.value = false;
-    });
+  console.log("Mounted index page", articleStore.fetched);
+  if (articleStore.fetched) {
+    posts.value = articleStore.cachedPosts;
+    updateCurrentPagePosts();
+    loading.value = false;
+  } else {
+    await getPosts()
+      .then((data) => {
+        posts.value = data ?? [];
+        articleStore.setPosts(data);
+        updateCurrentPagePosts();
+      })
+      .finally(() => {
+        loading.value = false;
+      });
+  }
 });
 
 watch(page, () => {
