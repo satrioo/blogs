@@ -18,7 +18,7 @@ export function useApi() {
       toast.add({
         title: 'Request Failed',
         description: error?.data?.message || error.message || 'Unexpected error',
-        color: 'red',
+        color: 'error',
       })
       return null
     }

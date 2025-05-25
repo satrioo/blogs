@@ -2,9 +2,6 @@
 import type { iArticle } from "@/types/article";
 import { getDetail } from "@/api/posts";
 
-definePageMeta({
-  layout: "landing",
-});
 
 const article = ref<iArticle | null>(null);
 const loading = ref(true);

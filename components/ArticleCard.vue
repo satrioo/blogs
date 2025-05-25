@@ -17,7 +17,7 @@ defineProps({
     <p class="text-gray-600 line-clamp-1">{{ data.body }}</p>
     <template #footer>
       <UButton size="sm" variant="ghost" color="primary" @click="$router.push(`/detail-article/${data.id}`)">
-        Baca Selengkapnya
+        Read More
       </UButton>
     </template>
   </UCard>
