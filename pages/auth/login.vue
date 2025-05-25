@@ -80,7 +80,7 @@ onMounted(() => {
     </form>
   </UCard>
 
-  <p class="text-center mt-2">user that can login must be in this list
-    <a target="_blank" href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a></p>
+  <p class="text-center mt-3">Users who can log in must be on this list:
+    <a target="_blank" class=" text-blue-700" href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a> if you’re not, you must register first</p>
   </div>
 </template>

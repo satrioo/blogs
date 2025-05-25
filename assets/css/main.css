@@ -70,3 +70,7 @@
   --color-surface-900: #176eff;
   --color-surface-950: #005efa;
 }
+
+button{
+  cursor: pointer;
+}
