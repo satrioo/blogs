@@ -1,54 +1,102 @@
-<!-- 
 <script setup lang="ts">
-const model = defineModel()
+import { useToast } from "#imports";
+import { createPost } from "@/api/posts";
+import type { iBlogPost } from '@/types/article'
 
-defineShortcuts({
-  o: () => open.value = !open.value
-})
+defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
+});
+
+const Posts = useCookie<iBlogPost[]>('Posts', {
+  default: () => [],
+});
+
+const toast = useToast();
+const isLoading = ref(false);
+const form = reactive({
+  title: "",
+  body: "",
+});
+
+const handleSubmit = () => {
+  const payload = {
+    title: form.title,
+    body: form.body,
+    userId: 1,
+  };
+
+  isLoading.value = true;
+
+  if (!form.body || !form.title) {
+    toast.add({ title: "Please fill title and body field", color: "error" });
+    isLoading.value = false;
+    return;
+  }
+
+  createPost(JSON.stringify(payload))
+    .then(() => {
+      toast.add({ title: "Success add post", color: "success" });
+      form.title = "";
+      form.body = "";
+    })
+    .catch(() => {
+      toast.add({ title: "Failed to add post", color: "error" });
+    })
+    .finally(() => {
+      Posts.value = [...(Posts.value || []), payload]; // append post
+      isLoading.value = false;
+      window.location.reload();
+    });
+};
+
 </script>
 
 <template>
-  {{ model }}
-  <UModal
-    v-model="model"
-    title="Modal with description"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  >
-    <UButton label="Open" color="neutral" variant="subtle" />
-
+  <UModal :title="title">
+    <slot />
     <template #body>
-      <Placeholder class="h-48" />
-    </template>
-  </UModal>
-</template> -->
+      <div>
+        <form class="space-y-4" @submit.prevent="handleSubmit">
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Title
+            </label>
+            <UInput
+              id="name"
+              v-model="form.title"
+              type="text"
+              placeholder="title"
+              class="w-full"
+            />
+          </div>
 
-<script setup lang="ts">
-import { ref, watch } from 'vue'
+          <div>
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Body
+            </label>
+            <UTextarea
+              id="username"
+              v-model="form.body"
+              type="text"
+              placeholder="body"
+              class="w-full"
+            />
+          </div>
 
-const open = ref(false)
-
-watch(open, (val) => {
-  console.log('Modal open changed:', val)
-})
-</script>
-
-<template>
-  <UButton label="Open Modal" @click="open = true" />
-
-  <UModal
-    v-model="open"
-    title="Modal with description"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  >
-    <!-- ✅ content goes into body slot, but don't forget #footer or internal close -->
-    <template #body>
-      <p class="text-red-500 cursor-pointer" @click="open = false">Click to close</p>
-      <Placeholder class="h-48" />
-    </template>
-
-    <!-- ✅ optional footer if needed -->
-    <template #footer>
-      <UButton label="Close" @click="open = false" />
+          <UButton type="submit" color="primary" block :loading="isLoading">
+            Submit
+          </UButton>
+        </form>
+      </div>
     </template>
   </UModal>
 </template>

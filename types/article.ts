@@ -4,3 +4,9 @@ export interface iArticle {
   title: string
   body: string
 }
+
+export interface iBlogPost {
+  title: string;
+  body: string;
+  userId: number;
+};

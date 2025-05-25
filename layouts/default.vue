@@ -26,7 +26,7 @@ const toggleDarkMode = () => {
           v-if="authStore.BlogsData.length > 0"
           icon="i-heroicons-arrow-uturn-left"
           variant="ghost"
-          label="Logout"
+          :label="`Logout - ${authStore.BlogsData[0].username}`"
           @click="authStore.doLogout"
         />
         <UButton

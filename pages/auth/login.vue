@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useToast } from '#imports'
 import { useAuthStore } from "@/stores/auth";
+import { getUser } from '@/api/posts'
+import type { iListUser } from '@/types/auth'
 
-const toast = useToast() // ✅ valid di <script setup>
+const toast = useToast() 
 const authStore = useAuthStore()
 const router = useRouter()
+const listUser = ref<iListUser[]>([])
 const form = reactive({
   email: '',
   password: ''
@@ -12,16 +15,29 @@ const form = reactive({
 
 const handleSubmit = () => {
   if (!form.email || !form.password) {
-    toast.add({ title: 'Email dan password wajib diisi', color: 'error' })
+    toast.add({ title: 'Please fill field Email and password ', color: 'error' })
     return
   }
-
-  toast.add({ title: 'Login berhasil!', color: 'success' })
-  authStore.doLogin(form)
-  router.push('/admin')
+  
+  const foundUser = listUser.value.find(item => item.email === form.email)
+  if (foundUser) {
+    toast.add({ title: 'Login success!', color: 'success' })
+    authStore.doLogin(foundUser)
+    router.push('/admin')
+  } else {
+    toast.add({ title: 'User is not registered', color: 'error' })
+  }
 }
+
+onMounted(() => {
+  getUser()
+    .then((res) => {
+      listUser.value = res as iListUser[]
+    })
+})
 </script>
 <template>
+  <div>
   <UCard class="max-w-md mx-auto mt-10">
     <template #header>
       <h2 class="text-2xl font-bold">Login</h2>
@@ -58,9 +74,13 @@ const handleSubmit = () => {
         Login
       </UButton>
       <p class="text-center text-sm">Or if you dont have an account</p>
-      <UButton type="submit" color="secondary" block>
+      <UButton @click="router.push('/auth/register')" color="secondary" block>
         Register
       </UButton>
     </form>
   </UCard>
+
+  <p class="text-center mt-2">user that can login must be in this list
+    <a target="_blank" href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a></p>
+  </div>
 </template>

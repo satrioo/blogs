@@ -4,8 +4,9 @@ import { useAuthStore } from "@/stores/auth";
 
 const toast = useToast()
 const authStore = useAuthStore()
-
+const router = useRouter()
 const form = reactive({
+  id: 1,
   name: '',
   username: '',
   email: '',
@@ -19,7 +20,7 @@ const handleSubmit = () => {
   }
 
   toast.add({ title: 'Registrasi berhasil!', color: 'success' })
-  authStore.doLogin(form) // atau ganti jadi doRegister kalau punya
+  authStore.doLogin(form) 
 }
 </script>
 
@@ -28,8 +29,7 @@ const handleSubmit = () => {
     <template #header>
       <h2 class="text-2xl font-bold">Register</h2>
     </template>
-
-    <form class="space-y-4" @submit.prevent="handleSubmit">
+    <form v-if="authStore.BlogsData.length === 0" class="space-y-4" @submit.prevent="handleSubmit" >
       <div>
         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
           Name
@@ -90,5 +90,10 @@ const handleSubmit = () => {
         Login
       </UButton>
     </form>
+    <div v-else>
+      <UButton type="submit" color="primary" block @click="router.push('/')">
+        Go to Homepage
+      </UButton>
+    </div>
   </UCard>
 </template>
