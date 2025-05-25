@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     baseURL: '/',
     head: {
       title: 'Blog',
+       meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
     },
   },
   devtools: { enabled: true },
